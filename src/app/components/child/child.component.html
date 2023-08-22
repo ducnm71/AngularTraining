@@ -1,0 +1,17 @@
+
+<h1>hello {{loginName}}</h1>
+
+
+
+<ul [ngSwitch]="loginName">
+  <li *ngSwitchCase="'user'">
+    <p>User is logged in</p>
+  </li>
+  <li *ngSwitchCase="'admin'">
+    <p>Admin is logged in</p>
+    <app-child></app-child>
+  </li>
+  <li *ngSwitchDefault>
+    <p>Please enter the loginName</p>
+  </li>
+</ul>

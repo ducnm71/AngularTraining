@@ -1,0 +1,27 @@
+<!-- components/parent/parent.component.html -->
+<div *ngIf="age <= 18; then tre; else gia"></div>
+<ng-template #tre><h2>M con tre</h2></ng-template>
+<ng-template #gia><h2>M gia vl</h2></ng-template>
+
+
+<button (click)="up()">Up</button>
+<h3>{{age}}</h3>
+
+<br/>
+<br/>
+
+<div *ngFor="let item of devices; let i = index">
+  <li>
+    {{i+1}}. {{item.name}}    {{item.price | currency:"VND": "symbol": "1.2"}}
+  </li>
+</div>
+
+<input type="text"
+   [value]="loginName"
+   (input)="getValue($event)"
+   >
+
+<app-child [loginName]="loginName"></app-child>
+<router-outlet></router-outlet>
+
+

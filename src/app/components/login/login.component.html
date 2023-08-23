@@ -1,6 +1,32 @@
 <p>login works!</p>
-<input type="text"
-   [value]="loginName"
-   (input)="getValue($event)"
->
-<button (click)="login()">Login</button>
+
+
+<!-- <form (ngSubmit)="login()"> //driven form
+
+  <input
+  type="text"
+  [(ngModel)]="loginName"
+  [ngModelOptions]="{standalone: true}"
+  >
+  <p>hi {{loginName}}</p>
+  <button>Login</button>
+</form> -->
+
+<!--
+  reactive form
+-->
+<form [formGroup]="formData2" (ngSubmit)="login()">
+  <label for="email">
+    Email
+    <input type="text" name="email" formControlName="email">
+    <p *ngIf="!formData2.controls.email.valid" style="color: red">Email is requied</p>
+  </label>
+  <br/>
+  <label for="password">
+    Password
+    <input type="password" name="password" formControlName="password">
+    <p *ngIf="!formData2.controls.password.valid" style="color: red">Password is requied</p>
+  </label>
+  <br/>
+  <button type="submit" [disabled]="!formData2.valid">Login</button>
+</form>

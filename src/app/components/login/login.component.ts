@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,19 +7,31 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  loginName = ''
+  // public formData: FormGroup = new FormGroup({
+  //   loginName: new FormControl('')
+  // });
 
-  constructor(private router: Router){}
+  public formData2 = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  getValue(event: Event) {
-    console.log((event.target as HTMLInputElement).value);
-    this.loginName = (event.target as HTMLInputElement).value
+  constructor(private router: Router, private fb: FormBuilder){}
+
+  // getValue(event: Event) {
+  //   console.log((event.target as HTMLInputElement).value);
+  //   this.loginName = (event.target as HTMLInputElement).value
+  // }
+
+  ngOnInit(): void {
   }
 
   login() {
-    this.router.navigate(['/home', this.loginName])
+    // this.router.navigate(['/home', this.formData.value])
+    console.log(this.formData2.value);
+
  }
 
 }

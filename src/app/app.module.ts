@@ -8,8 +8,12 @@ import { AppComponent } from './app.component';
 import { ParentComponent } from './components/parent/parent.component';
 import { ChildComponent } from './components/child/child.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './pages/login/login.component';
+
+
 
 
 @NgModule({
@@ -18,14 +22,17 @@ import { HomeComponent } from './components/home/home.component';
     ParentComponent,
     ChildComponent,
     PageNotFoundComponent,
-    LoginComponent,
     HomeComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    LoginComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

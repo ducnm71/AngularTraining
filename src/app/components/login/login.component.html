@@ -1,4 +1,4 @@
-<p>login works!</p>
+<p class="text-3xl font-bold underline">login works!</p>
 
 
 <!-- <form (ngSubmit)="login()"> //driven form
@@ -18,15 +18,24 @@
 <form [formGroup]="formData2" (ngSubmit)="login()">
   <label for="email">
     Email
-    <input type="text" name="email" formControlName="email">
+    <input type="text" name="email" formControlName="email"
+    class="border-2 border-black"
+    >
     <p *ngIf="!formData2.controls.email.valid" style="color: red">Email is requied</p>
   </label>
   <br/>
   <label for="password">
     Password
-    <input type="password" name="password" formControlName="password">
+    <input type="password" name="password" formControlName="password"
+    class="border-2 border-black"
+    >
     <p *ngIf="!formData2.controls.password.valid" style="color: red">Password is requied</p>
   </label>
   <br/>
-  <button type="submit" [disabled]="!formData2.valid">Login</button>
+  <button  mat-raised-button color="primary" type="submit"
+
+  >Login</button>
+
 </form>
+
+

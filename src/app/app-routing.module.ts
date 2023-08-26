@@ -6,10 +6,12 @@ import { ChildComponent } from './components/child/child.component';
 // import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { TextComponent } from './pages/text/text.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'home', component: HomeComponent}
+  {path: 'login', component: LoginComponent},
+  {path: '', component: HomeComponent},
+  {path: 'text', component: TextComponent}
   // {path: 'home/:name', component: HomeComponent},
   // {path: 'parent', component: ParentComponent,
   //   children: [

@@ -1,0 +1,47 @@
+<div class="w-[95%]  flex flex-col gap-3 pt-4 m-auto">
+  <div>
+    <h1 class="text-xl font-medium">Text of object in page</h1>
+  </div>
+
+  <div class="w-full">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
+      <!-- Position Column -->
+      <ng-container matColumnDef="text_id">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> ID Text </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500"> {{element.text_id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="content">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Content </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500"> {{element.content}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sync_data">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Sync Data </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500"> {{element.sync_data}} </td>
+      </ng-container>
+
+      <!-- file_audio Column -->
+      <ng-container matColumnDef="file_audio">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> File Audio </th>
+        <td mat-cell *matCellDef="let element">
+          <audio controls class="h-8">
+            <source src="horse.ogg" type="audio/ogg">
+            <source src={{element.file_audio}} type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Action </th>
+        <td mat-cell *matCellDef="let element"><mat-icon class="text-red-600 cursor-pointer">delete_outline</mat-icon></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

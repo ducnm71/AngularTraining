@@ -1,0 +1,84 @@
+<div class="w-[99%] m-auto h-fit bg-white flex flex-col gap-3 py-4 rounded-md shadow-lg">
+  <div class=" pb-3 border-b-2 border-gray-200 flex items-center justify-between">
+    <h1 class="pl-5 font-bold text-gray-500 flex-1">Page Content Story</h1>
+    <div class="pr-5 flex items-center gap-2 flex-2">
+      <mat-icon class="cursor-pointer">cached</mat-icon>
+      <span class="font-bold text-2xl cursor-pointer">A</span>
+      <mat-icon class="cursor-pointer">edit</mat-icon>
+    </div>
+  </div>
+
+  <div>
+    <div class="mat-elevation-z8 w-[99%] m-auto">
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef='Page number'>
+          <th mat-header-cell *matHeaderCellDef ><p class="text-gray-500 font-bold">Page number</p></th>
+          <td mat-cell *matCellDef="let element"class="font-bold text-gray-500 text-gray-500">
+            <p>Page {{element.page_number.number}}</p>
+            <p>[{{element.page_number.page_id}}]</p>
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Content">
+          <th mat-header-cell *matHeaderCellDef><p class="text-gray-500 font-bold">Content</p></th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex gap-2">
+              <div class="flex gap-1"><p class="font-bold text-gray-500">ID:</p>{{element.content.ID}}</div>
+              <div class="flex gap-1"><p class="font-bold text-gray-500">Text ID:</p>{{element.content.text_id}}</div>
+              <div class="flex gap-1"><p class="font-bold text-gray-500">Word ID:</p>{{element.content.word_id}}</div>
+            </div>
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Text:</p>{{element.content.text}}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Config">
+          <th mat-header-cell *matHeaderCellDef><p class="text-gray-500 font-bold">Config</p></th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Kiểu trang:</p>Full màn hình</div>
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Hiển thị nhiều block text:</p><input type="checkbox"></div>
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Hiển thị đồng thời:</p><input type="checkbox" checked class="text-black"></div>
+          </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Story page size">
+          <th mat-header-cell *matHeaderCellDef><p class="text-gray-500 font-bold">Story page size</p></th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Size:</p>50</div>
+            <div class="flex gap-1"><p class="font-bold text-gray-500">Line height:</p>50</div>
+          </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Story page color">
+          <th mat-header-cell *matHeaderCellDef><p class="text-gray-500 font-bold">Story page color</p></th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex gap-1 items-center">
+              <p class="font-bold text-gray-500">Color:</p>
+              <div class="w-12 h-6 bg-slate-300 flex items-center justify-center">
+                <div class="w-10 h-4 bg-black"></div>
+              </div>
+            </div>
+            <div class="flex gap-1">
+              <p class="font-bold text-gray-500">Highlight:</p>
+              <div class="w-12 h-6 bg-slate-300 flex items-center justify-center">
+                <div class="w-10 h-4 bg-red-600"></div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { ResolveFn, RouterModule, Routes } from '@angular/router';
-import { ParentComponent } from './components/parent/parent.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ChildComponent } from './components/child/child.component';
+import { ParentComponent } from './components/test/parent/parent.component';
+import { PageNotFoundComponent } from './components/test/page-not-found/page-not-found.component';
+import { ChildComponent } from './components/test/child/child.component';
 // import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';

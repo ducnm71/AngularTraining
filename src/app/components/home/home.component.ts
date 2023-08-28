@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServerService } from 'src/app/Services/http-server.service';
 
+import { StoryNameComponent } from './story-name/story-name.component';
+import { PageContentStoryComponent } from './page-content-story/page-content-story.component';
 
-import { HeaderComponent } from '../header/header.component';
-import { StoryNameComponent } from '../story-name/story-name.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [HeaderComponent, StoryNameComponent]
+  imports: [StoryNameComponent, PageContentStoryComponent]
 })
 export class HomeComponent implements OnInit {
 

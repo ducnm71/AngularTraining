@@ -7,17 +7,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
-import { ParentComponent } from './components/parent/parent.component';
-import { ChildComponent } from './components/child/child.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-// import { LoginComponent } from './components/login/login.component';
+import { ParentComponent } from './components/test/parent/parent.component';
+import { ChildComponent } from './components/test/child/child.component';
+import { PageNotFoundComponent } from './components/test/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/login/login.component';
 import { TextComponent } from './pages/text/text.component';
 import { HeaderComponent } from './components/header/header.component';
-
-
 
 
 @NgModule({
@@ -38,7 +35,6 @@ import { HeaderComponent } from './components/header/header.component';
     HomeComponent,
     TextComponent,
     HeaderComponent
-
   ],
   providers: [],
   bootstrap: [AppComponent]

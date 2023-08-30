@@ -20,21 +20,13 @@ export class HomeComponent implements OnInit {
   // loginName = ''
   // constructor(private router: ActivatedRoute) {}
   ngOnInit(): void {
-      // this.router.params.subscribe(params => {
-      //   this.loginName = params['name']
-      //   console.log(params['name']);
 
-      // })
-      this.fetchUsers()
+    // this.httpServerService.getUsers().subscribe(data => {
+    //   // console.log('data', data);
+    //   this.users = data
+    //   // console.log('users',this.users);
 
+    // })
   }
 
-  fetchUsers(): void {
-    this.httpServerService.getUsers().subscribe(data => {
-      console.log('data', data);
-      this.users = data
-      console.log('users',this.users);
-
-    })
-  }
 }

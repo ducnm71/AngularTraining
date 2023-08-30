@@ -10,11 +10,13 @@ import { AppComponent } from './app.component';
 import { ParentComponent } from './components/test/parent/parent.component';
 import { ChildComponent } from './components/test/child/child.component';
 import { PageNotFoundComponent } from './components/test/page-not-found/page-not-found.component';
+import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/login/login.component';
 import { TextComponent } from './pages/text/text.component';
-import { HeaderComponent } from './components/header/header.component';
+import { WordComponent } from './pages/word/word.component';
+import { PageComponent } from './pages/page/page.component';
 
 
 @NgModule({
@@ -31,10 +33,12 @@ import { HeaderComponent } from './components/header/header.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     LoginComponent,
+    HeaderComponent,
     HttpClientModule,
     HomeComponent,
     TextComponent,
-    HeaderComponent
+    WordComponent,
+    PageComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

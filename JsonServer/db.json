@@ -2,5 +2,11 @@
   "users": [
     {"id": 1, "name": "Duc", "email": "duc@gmail.com"},
     {"id": 2, "name": "Cuong", "email": "cuong@gmail.com"}
+  ],
+
+  "pages": [
+    {"id": 1, "page_number": 1, "backgound": "img.png", "story_id": 1},
+    {"id": 1, "page_number": 1, "backgound": "img.png", "story_id": 1},
+    {"id": 1, "page_number": 1, "backgound": "img.png", "story_id": 1}
   ]
 }

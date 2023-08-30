@@ -7,11 +7,15 @@ import { ChildComponent } from './components/test/child/child.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { TextComponent } from './pages/text/text.component';
+import { WordComponent } from './pages/word/word.component';
+import { PageComponent } from './pages/page/page.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: HomeComponent},
-  {path: 'text', component: TextComponent}
+  {path: 'text', component: TextComponent},
+  {path: 'word', component: WordComponent},
+  {path: 'page', component: PageComponent}
   // {path: 'home/:name', component: HomeComponent},
   // {path: 'parent', component: ParentComponent,
   //   children: [

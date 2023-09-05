@@ -1,5 +1,7 @@
-<div class="bg-slate-100 w-full h-screen">
-
+<div class="bg-slate-100 w-full h-screen"
+*ngIf="checkToken()"
+>
   <app-header></app-header>
   <router-outlet></router-outlet>
 </div>
+<router-outlet></router-outlet>

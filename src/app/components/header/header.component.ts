@@ -12,5 +12,8 @@ import {MatIconModule} from '@angular/material/icon';
   imports: [MatButtonModule, MatMenuModule, MatIconModule],
 })
 export class HeaderComponent {
-
+  logOut() {
+    localStorage.removeItem('token');
+    window.location.replace('/login');
+  }
 }

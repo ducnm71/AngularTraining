@@ -9,10 +9,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { TextComponent } from './pages/text/text.component';
 import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
+import { ListStoryComponent } from './components/list-story/list-story.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: '', component: HomeComponent},
+  { path:'main',  component: ListStoryComponent},
+  {path: 'home', component: HomeComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'text', component: TextComponent},
   {path: 'word', component: WordComponent},
   {path: 'page', component: PageComponent}

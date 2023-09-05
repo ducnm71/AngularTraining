@@ -1,0 +1,82 @@
+
+<div class="w-full flex flex-col justify-center items-center gap-0">
+  <img src="../../../assets/logoXBg.png" class="w-40" alt="">
+  <div class="flex items-center">
+    <mat-icon class="absolute pl-1 text-gray-400">search</mat-icon>
+    <input type="text" placeholder="Enter the story name..." class="w-96 h-12 pl-10 border-4 rounded-xl border-">
+  </div>
+</div>
+
+<div class="w-[98%] mt-5 m-auto h-fit bg-white flex flex-col gap-3 py-4 rounded-md shadow-lg">
+  <div class=" pb-3 border-b-2 border-gray-200 flex items-center justify-between">
+    <h1 class="pl-5 font-bold text-gray-500 flex-1">List Story</h1>
+    <div class="pr-5 flex items-center gap-2 flex-2">
+      <button mat-button color="primary" class="flex flex-row-reverse gap-2" (click)="openDialog()">
+        <p>Add new story</p>
+        <mat-icon class="cursor-pointer">library_add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="mat-elevation-z8 w-[98%] m-auto">
+    <table mat-table [dataSource]="dataSource" class="w-[90%]">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="ID Stories" >
+        <th mat-header-cell *matHeaderCellDef> ID Stories </th>
+        <td mat-cell *matCellDef="let element" (click) = "storyDetail()"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Thumbnail">
+        <th mat-header-cell *matHeaderCellDef> Thumbnail </th>
+        <td mat-cell *matCellDef="let element" (click) = "storyDetail()">
+          <div class="py-[30px]">
+
+            <img [src]="dataFake.thumb" alt="" class="w-24">
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Informations">
+        <th mat-header-cell *matHeaderCellDef> Informations </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="flex gap-1"><p class="font-bold text-gray-500">Type:</p>Truyện tĩnh</div>
+          <div class="flex gap-1"><p class="font-bold text-gray-500">Version:</p>8</div>
+          <div class="flex gap-1"><p class="font-bold text-gray-500">Time Publish:</p>10/10/2023 00:00</div>
+          <div class="flex gap-1"><p class="font-bold text-gray-500">Time Created:</p>{{element.created_at}}</div>
+          <div class="flex gap-1"><p class="font-bold text-gray-500">Time Updated:</p>{{element.updated_at}}</div>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Content">
+        <th mat-header-cell *matHeaderCellDef> Content </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="flex justify-center gap-2">
+            <button mat-raised-button color="primary"><mat-icon>settings</mat-icon></button>
+            <button mat-raised-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[3, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>
+
+</div>
+
+

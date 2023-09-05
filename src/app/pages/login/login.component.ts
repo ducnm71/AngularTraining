@@ -6,6 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, NgForm, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/Services/user.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private fb: FormBuilder, private router: Router){}
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService){}
 
   public formData = this.fb.group({
     email: ['', Validators.required],
@@ -53,8 +54,14 @@ export class LoginComponent {
 
 
   login() {
-    console.log(this.formData.getRawValue());
-    this.router.navigate(['/home'])
+    // console.log(this.formData.getRawValue());
+    // this.router.navigate(['/home'])
+    const dataLogin = this.formData.getRawValue()
+    this.userService.signIn(dataLogin).subscribe(data => {
+      // console.log(data.jwt);
+      localStorage.setItem('token', data.jwt)
+      window.location.replace('/main')
+    })
   }
 }
 

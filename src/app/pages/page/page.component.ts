@@ -24,7 +24,7 @@ export class PageComponent implements OnInit {
   constructor(private router: Router, private pageService: PageService) {}
 
   backStory(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/home'])
   }
 
   ngOnInit(): void {

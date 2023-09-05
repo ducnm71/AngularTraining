@@ -1,4 +1,4 @@
-<div class="w-full h-[5%] border-2 border-gray flex items-center justify-between bg-white drop-shadow-xl">
+<div class="w-full h-[5%] border-2 border-gray flex items-center justify-between bg-white drop-shadow-xl ">
   <ul class="flex items-center pl-10">
     <li>
       <button class="flex flex-row-reverse items-center" mat-button [matMenuTriggerFor]="menu">
@@ -30,14 +30,14 @@
   </ul>
 
   <div  class="flex flex-row items-center justify-center pr-10">
-    <button class="flex flex-row-reverse items-center" mat-button [matMenuTriggerFor]="menu">
-      <p class=" text-gray-500">KT_Minh_Duc</p>
-      <mat-icon class="text-gray-500">arrow_drop_down</mat-icon></button>
+    <button class="flex flex-row-reverse items-center gap-1" mat-button [matMenuTriggerFor]="menu">
+      <p class=" text-gray-500" (click)="logOut()">KT_Minh_Duc</p>
+      <mat-icon class="text-gray-500">arrow_drop_down</mat-icon>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
+        <button mat-menu-item>Profile</button>
+        <button >Logout</button>
       </mat-menu>
-
-      <img src="../../../assets/logo.jpg" class="w-12" alt="">
+    </button>
+    <img src="../../../assets/logo.jpg" class="w-12" alt="">
   </div>
 </div>

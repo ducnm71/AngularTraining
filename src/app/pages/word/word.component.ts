@@ -20,7 +20,7 @@ export class WordComponent {
   constructor(private router: Router) {}
 
   backStory(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/home'])
   }
 
 }

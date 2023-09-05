@@ -36,7 +36,7 @@ export class CanvasComponent {
     this.write(e)
     }
   }
-
+  
   // render(): any {
   //   const canvasEl: HTMLCanvasElement = this.canvasRef.nativeElement
   //   this.context = canvasEl.getContext('2d')

@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { TextComponent } from './pages/text/text.component';
 import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
+import { ListStoryComponent } from './components/list-story/list-story.component';
 
 
 
@@ -36,6 +37,7 @@ import { PageComponent } from './pages/page/page.component';
     LoginComponent,
     HeaderComponent,
     HttpClientModule,
+    ListStoryComponent,
     HomeComponent,
     TextComponent,
     WordComponent,

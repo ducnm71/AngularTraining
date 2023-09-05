@@ -48,7 +48,8 @@ export class PageContentStoryComponent implements AfterViewInit{
   ngOnInit(): void {
     this.pageService.getPages().subscribe(data => {
     this.dataSource.data = data
-})
+
+  })
 
   }
 

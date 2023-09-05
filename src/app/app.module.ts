@@ -19,6 +19,7 @@ import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

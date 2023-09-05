@@ -1,0 +1,17 @@
+<div class="mb-3 flex gap-2 justify-end">
+  <button mat-raised-button color="primary" class="" (click)="undo()">Undo</button>
+  <button mat-raised-button color="warn" class="" (click)="clearAll()">Clear all</button>
+</div>
+<div class="overflow-y-auto h-[96%]">
+
+    <canvas #canvasRef id="canvasId"
+      class="w-full m-auto bg-cover bg-center bg-no-repeat "
+      [style.background-image]="'url(' + '../../../../assets/pages/'  + bg + ')'"
+      (mousedown)="handleMouseDown($event)"
+      (mousemove)="handleMouseMove($event)"
+      (mouseup)="handleMouseUp($event)"
+      >
+    </canvas>
+</div>
+
+

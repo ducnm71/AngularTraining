@@ -8,21 +8,21 @@
       <ng-container matColumnDef="Page" >
         <th mat-header-cell *matHeaderCellDef class="text-center"> Page </th>
         <td mat-cell *matCellDef="let element" class="text-center" (click)="textOfPage()">
-          <p>Trang {{element.page_number.number}}</p>
-          <p>(Page ID: {{element.page_number.page_id}})</p>
+          <p>Trang {{element.page_number}}</p>
+          <p>(Page ID: {{element.id}})</p>
         </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="Content">
         <th mat-header-cell *matHeaderCellDef class="text-center"> Content </th>
-        <td mat-cell *matCellDef="let element"> {{element.content}} </td>
+        <td mat-cell *matCellDef="let element"> {{dataFake.content}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="Sync data">
         <th mat-header-cell *matHeaderCellDef class="text-center"> Sync data </th>
-        <td mat-cell *matCellDef="let element"> {{element.syncData}} </td>
+        <td mat-cell *matCellDef="let element"> {{dataFake.syncData}} </td>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -31,7 +31,7 @@
         <td mat-cell *matCellDef="let element" class="flex flex-col gap-3 py-2">
           <audio controls class="h-8">
             <source src="horse.ogg" type="audio/ogg">
-            <source src={{element.file_audio}} type="audio/mpeg">
+            <source src={{dataFake.fileAudio}} type="audio/mpeg">
             Your browser does not support the audio tag.
           </audio>
         </td>

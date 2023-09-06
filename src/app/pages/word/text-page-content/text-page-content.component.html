@@ -1,6 +1,6 @@
-<div class="w-[99%] border-2 border-gray-300 m-auto mt-5 rounded-md bg-white shadow-lg">
+<div class="w-[99%] border-2 border-gray-300 m-auto rounded-md bg-white shadow-lg">
   <div class="bg-slate-100">
-    <h1 class="border-b-2 border-gray-300 pl-5 py-2 font-bold">Text Page Content</h1>
+    <h1 class="border-b-2 border-gray-300 pl-5  py-4 font-bold">Text Page Content</h1>
   </div>
 
   <div class="m-auto p-3">
@@ -28,7 +28,7 @@
       <!-- Symbol Column -->
       <ng-container matColumnDef="File Audio">
         <th mat-header-cell *matHeaderCellDef class="text-center"> File Audio </th>
-        <td mat-cell *matCellDef="let element" class="flex flex-col gap-3 py-2">
+        <td mat-cell *matCellDef="let element" class="py-2">
           <audio controls class="h-8">
             <source src="horse.ogg" type="audio/ogg">
             <source src={{dataFake.fileAudio}} type="audio/mpeg">

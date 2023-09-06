@@ -1,5 +1,5 @@
 import { Component,  ElementRef, ViewChild, AfterViewInit, OnInit, HostListener, Input, Output, EventEmitter} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router , ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { MatIconModule } from '@angular/material/icon';
@@ -19,16 +19,20 @@ import { CanvasComponent } from './canvas/canvas.component';
 })
 
 export class PageComponent implements OnInit {
-
+  storyId: any;
   pages = []
-  constructor(private router: Router, private pageService: PageService) {}
+  constructor(private router1: Router, private router2: ActivatedRoute, private pageService: PageService) {}
 
   backStory(){
-    this.router.navigate(['/home'])
+    this.router1.navigate(['/story', this.storyId])
   }
 
   ngOnInit(): void {
-    this.pageService.getPages().subscribe(data => {
+    this.router2.paramMap.subscribe(params => {
+      this.storyId = params.get('storyId')
+    })
+
+    this.pageService.getPages(this.storyId).subscribe(data => {
       this.pages = data
     })
   }

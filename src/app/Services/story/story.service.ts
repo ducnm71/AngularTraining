@@ -21,4 +21,15 @@ export class StoryService {
     const url = `${this.REST_API_SERVER}`
     return this.httpClient.get<any>(url, this.httpOptions)
   }
+
+  public createtStory(data: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}`
+    return this.httpClient.post<any>(url, data, this.httpOptions)
+  }
+
+  public deleteStory(storyId: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${storyId}`
+    return this.httpClient.delete<any>(url, this.httpOptions)
+  }
+
 }

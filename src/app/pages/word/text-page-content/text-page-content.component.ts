@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon'
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 import { PageService } from 'src/app/Services/page/page.service';
 
 export interface PeriodicElement {
@@ -25,7 +25,9 @@ export interface PeriodicElement {
 })
 export class TextPageContentComponent {
 
-  constructor(private router: Router, private pageService: PageService) {}
+  storyId: any;
+
+  constructor(private router1: Router, private router2: ActivatedRoute, private pageService: PageService) {}
 
   displayedColumns: string[] = ['Page','Content', 'Sync data', 'File Audio', 'Actions'];
   dataSource: PeriodicElement[] = [];
@@ -35,12 +37,15 @@ export class TextPageContentComponent {
     fileAudio: 'H'}
 
   ngOnInit(): void {
-    this.pageService.getPages().subscribe(data => {
+    this.router2.paramMap.subscribe(params => {
+      this.storyId = params.get('storyId')
+    })
+    this.pageService.getPages(this.storyId).subscribe(data => {
     this.dataSource = data
     })
   }
 
   textOfPage(): void{
-    this.router.navigate(['/text'])
+    this.router1.navigate(['/text'])
   }
 }

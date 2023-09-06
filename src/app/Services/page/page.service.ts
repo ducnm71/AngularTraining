@@ -15,8 +15,8 @@ export class PageService {
   }
   constructor(private httpClient: HttpClient) { }
 
-  public getPages(): Observable<any> {
-    const url = `${this.REST_API_SERVER}/all/1`
+  public getPages(id: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/all/${id}`
     return this.httpClient.get<any>(url, this.httpOptions)
   }
 }

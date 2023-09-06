@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild, Input} from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -38,7 +38,7 @@ export interface PeriodicElement {
   imports: [MatButtonModule,MatIconModule, MatTableModule, MatPaginatorModule, CommonModule],
 })
 export class PageContentStoryComponent implements AfterViewInit{
-
+  @Input() id: any
   displayedColumns: string[] = ['Page number', 'Content', 'Config', 'Story page size', 'Story page color'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   @ViewChild(MatPaginator) paginator!: MatPaginator ;
@@ -46,11 +46,9 @@ export class PageContentStoryComponent implements AfterViewInit{
   constructor(private router: Router, private pageService: PageService) {}
 
   ngOnInit(): void {
-    this.pageService.getPages().subscribe(data => {
-    this.dataSource.data = data
-
-  })
-
+    this.pageService.getPages(this.id).subscribe(data => {
+      this.dataSource.data = data
+    })
   }
 
   ngAfterViewInit() {
@@ -58,8 +56,8 @@ export class PageContentStoryComponent implements AfterViewInit{
   }
 
 
-  configObject(){
-    this.router.navigate(['/page'])
+  configObject(storyId: number){
+    this.router.navigate(['/page', storyId])
   }
 
 }

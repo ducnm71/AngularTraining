@@ -5,20 +5,20 @@
     <div class="flex flex-col">
       <mat-form-field>
         <mat-label>Author</mat-label>
-        <input matInput [(ngModel)]="data.animal">
+        <input matInput [(ngModel)]="data.author">
       </mat-form-field>
       <mat-form-field>
         <mat-label>Content</mat-label>
-        <input matInput [(ngModel)]="data.animal">
+        <input matInput [(ngModel)]="data.name">
       </mat-form-field>
       <div class="flex gap-2 items-center">
         <label class="text-black">Thumbnail</label>
-        <input type="file">
+        <input type="file" [(ngModel)]="data.thumbnail">
       </div>
     </div>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()" class="ml-auto">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Add</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="handleAddStory()">Add</button>
   </div>
 </div>

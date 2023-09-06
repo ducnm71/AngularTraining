@@ -18,15 +18,15 @@ export class CanvasComponent {
 
   }
 
-  // context!: CanvasRenderingContext2D
+  context!: CanvasRenderingContext2D
   // points: Array<any> = []
-  context: any
+  // context: any
 
 
   ngAfterViewInit(): void {
     const canvasEl = this.canvasRef.nativeElement
-    const context = canvasEl.getContext('2d')
-    this.context = context
+    // const context = canvasEl.getContext('2d')
+    this.context = canvasEl.getContext('2d')!
     // console.log(this.context);
  }
 
@@ -36,7 +36,7 @@ export class CanvasComponent {
     this.write(e)
     }
   }
-  
+
   // render(): any {
   //   const canvasEl: HTMLCanvasElement = this.canvasRef.nativeElement
   //   this.context = canvasEl.getContext('2d')
@@ -54,16 +54,18 @@ export class CanvasComponent {
 }
 
   private isDragging = false;
-  private startX = 0;
-  private startY = 0;
+  private startX = 50;
+  private startY = 50;
   private endX = 0;
   private endY = 0;
   private rectangles: any[] = [];
 
   handleMouseDown(event: MouseEvent):void {
+
     this.isDragging = true;
     this.startX = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
     this.startY = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
+    // console.log(this.startX, this.startY);
   }
 
   handleMouseMove(event: MouseEvent):void {
@@ -78,6 +80,7 @@ export class CanvasComponent {
   }
 
   handleMouseUp(event: MouseEvent):void {
+
     if(this.isDragging){
       this.isDragging = false;
       this.endX = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
@@ -93,7 +96,7 @@ export class CanvasComponent {
       this.drawRectangle()
 
       // this.logRectangleCoordinates();
-      console.log(this.rectangles);
+      // console.log(this.rectangles);
 
     }
   }
@@ -103,6 +106,8 @@ export class CanvasComponent {
     this.rectangles.forEach(rect => {
 
       this.context.strokeRect(rect.x1, rect.y1, rect.x2 - rect.x1, rect.y2 - rect.y1);
+      console.log(rect.x1, rect.y1);
+
     })
     // this.context.stroke();
   }

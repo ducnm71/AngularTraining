@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'
@@ -17,10 +17,20 @@ import { TextPageContentComponent } from './text-page-content/text-page-content.
   imports: [StoryComponent,TextPageContentComponent ,MatButtonModule,MatIconModule],
 })
 export class WordComponent {
-  constructor(private router: Router) {}
+
+  storyId: any;
+
+  constructor(private router1: Router, private router2: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.router2.paramMap.subscribe(params => {
+      this.storyId = params.get('storyId')
+    })
+
+  }
 
   backStory(){
-    this.router.navigate(['/home'])
+    this.router1.navigate(['/story', this.storyId])
   }
 
 }

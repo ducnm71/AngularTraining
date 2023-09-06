@@ -14,11 +14,11 @@ import { ListStoryComponent } from './components/list-story/list-story.component
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   { path:'main',  component: ListStoryComponent},
-  {path: 'home', component: HomeComponent},
+  {path: 'story/:id', component: HomeComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'text', component: TextComponent},
-  {path: 'word', component: WordComponent},
-  {path: 'page', component: PageComponent}
+  {path: 'word/:storyId', component: WordComponent},
+  {path: 'page/:storyId', component: PageComponent}
   // {path: 'home/:name', component: HomeComponent},
   // {path: 'parent', component: ParentComponent,
   //   children: [

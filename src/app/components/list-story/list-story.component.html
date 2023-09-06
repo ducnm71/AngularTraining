@@ -1,6 +1,9 @@
 
-<div class="w-full flex flex-col justify-center items-center gap-0">
+
+
+<div class="w-full flex flex-col justify-center items-center gap-2">
   <img src="../../../assets/logoXBg.png" class="w-40" alt="">
+  <h1 class="text-2xl text-slate-600 font-bold">List Story</h1>
   <div class="flex items-center">
     <mat-icon class="absolute pl-1 text-gray-400">search</mat-icon>
     <input type="text" placeholder="Enter the story name..." class="w-96 h-12 pl-10 border-4 rounded-xl border-">
@@ -25,16 +28,16 @@
       <!-- Position Column -->
       <ng-container matColumnDef="ID Stories" >
         <th mat-header-cell *matHeaderCellDef> ID Stories </th>
-        <td mat-cell *matCellDef="let element" (click) = "storyDetail()"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element" (click) = "storyDetail(element.id)"> {{element.id}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="Thumbnail">
         <th mat-header-cell *matHeaderCellDef> Thumbnail </th>
-        <td mat-cell *matCellDef="let element" (click) = "storyDetail()">
-          <div class="py-[30px]">
+        <td mat-cell *matCellDef="let element" (click) = "storyDetail(element.id)">
+          <div class="py-[20px]">
 
-            <img [src]="dataFake.thumb" alt="" class="w-24">
+            <img src="../../../assets/thumbnail.png" alt="" class="w-24 h-32">
           </div>
         </td>
       </ng-container>
@@ -62,7 +65,7 @@
         <td mat-cell *matCellDef="let element">
           <div class="flex justify-center gap-2">
             <button mat-raised-button color="primary"><mat-icon>settings</mat-icon></button>
-            <button mat-raised-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+            <button mat-raised-button color="warn" (click)="handleDeleleStory(element.id)"><mat-icon>delete_outline</mat-icon></button>
           </div>
         </td>
       </ng-container>
@@ -78,5 +81,6 @@
   </div>
 
 </div>
+
 
 

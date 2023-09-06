@@ -15,18 +15,15 @@ import { PageContentStoryComponent } from './page-content-story/page-content-sto
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private httpServerService: HttpServerService){}
-  users: any[] = [];
-  // loginName = ''
-  // constructor(private router: ActivatedRoute) {}
+  storyId: any;
+
+  constructor(private httpServerService: HttpServerService,  private route: ActivatedRoute,){}
+
+
   ngOnInit(): void {
-
-    // this.httpServerService.getUsers().subscribe(data => {
-    //   // console.log('data', data);
-    //   this.users = data
-    //   // console.log('users',this.users);
-
-    // })
+    this.route.paramMap.subscribe(params => {
+      this.storyId = params.get('id')
+    })
   }
 
 }

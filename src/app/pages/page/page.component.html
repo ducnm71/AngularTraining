@@ -11,11 +11,11 @@
   </div>
 </div>
 
-<div>
+<div class="w-full">
   <div class="w-full">
     <mat-tab-group (selectedTabChange)="onTabChange($event)">
         <mat-tab *ngFor="let item of pages; let i = index" label="Trang {{i+1}}">
-          <div class="w-[98%] h-4/5 m-auto mt-2">
+          <div class="w-full h-4/5 m-auto mt-2">
             <app-canvas [bg]="selectedPage?.background"></app-canvas>
           </div>
         </mat-tab>

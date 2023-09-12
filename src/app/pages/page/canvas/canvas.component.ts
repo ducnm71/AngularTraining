@@ -1,46 +1,78 @@
-import { Component, ElementRef, ViewChild, HostListener, Input} from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener, Input, Inject} from '@angular/core';
+import { CommonModule, NgIf } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+
+import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { TouchService } from 'src/app/Services/touch/touch.service';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css'],
   standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, CommonModule, MatFormFieldModule,
+    MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule],
 })
 export class CanvasComponent {
   @Input() bg: string = '';
   @ViewChild('canvasRef') canvasRef!: ElementRef<HTMLCanvasElement>
+  context!: CanvasRenderingContext2D
 
-  ngOnInit(): void {
+  constructor(public dialog: MatDialog, private router: ActivatedRoute,){}
+  hasTitle: boolean = false
+  text: string = ''
+  file: string = ''
+  page_id: any
+  change: boolean = false
 
+  openTextModal():void {
+    const dialogRef = this.dialog.open(TextModal, {
+      data: {
+        page_id: this.page_id,
+        text: this.text,
+        file: this.file,
+        data: {
+          x1: this.x1,
+          y1: this.y1,
+          x2: this.x2,
+          y2: this.y2
+        }
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.change = true
+    })
   }
 
-  context!: CanvasRenderingContext2D
-  // points: Array<any> = []
-  // context: any
 
+  ngOnInit(): void {
+    this.router.paramMap.subscribe(params => {
+      this.page_id = params.get('pageId')
+    })
+  }
 
   ngAfterViewInit(): void {
+    // console.log(this.bg);
     const canvasEl = this.canvasRef.nativeElement
     // const context = canvasEl.getContext('2d')
     this.context = canvasEl.getContext('2d')!
-    // console.log(this.context);
  }
 
-  @HostListener('click', ['$event'])
-  onClick = (e: any) => {
+  @HostListener('dblclick', ['$event'])
+  onDoubleClick = (e: any) => {
     if (e.target.id === 'canvasId'){
-    this.write(e)
+      this.write(e)
+      this.openTextModal()
     }
   }
-
-  // render(): any {
-  //   const canvasEl: HTMLCanvasElement = this.canvasRef.nativeElement
-  //   this.context = canvasEl.getContext('2d')
-  // }
 
   write(res: any): any {
     const canvasEl = this.canvasRef.nativeElement
@@ -49,33 +81,33 @@ export class CanvasComponent {
       pointX: res.clientX - rect.left,
       pointY: res.clientY- rect.top
     }
-    // console.log(prePos);
+    console.log(prePos);
 
 }
 
   private isDragging = false;
-  private startX = 50;
-  private startY = 50;
-  private endX = 0;
-  private endY = 0;
+  private x1 = 0;
+  private y1 = 0;
+  private x2 = 0;
+  private y2 = 0;
   private rectangles: any[] = [];
 
   handleMouseDown(event: MouseEvent):void {
 
     this.isDragging = true;
-    this.startX = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
-    this.startY = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
-    // console.log(this.startX, this.startY);
+    this.x1 = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
+    this.y1 = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
+    // console.log(this.x1, this.y1);
   }
 
   handleMouseMove(event: MouseEvent):void {
     if (this.isDragging) {
-      this.endX = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
-      this.endY = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
+      this.x2 = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
+      this.y2 = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
       this.clearCanvas()
       this.drawRectangle();
 
-      this.context.strokeRect(this.startX, this.startY, this.endX - this.startX, this.endY - this.startY);
+      this.context.strokeRect(this.x1, this.y1, this.x2 - this.x1, this.y2 - this.y1);
     }
   }
 
@@ -83,18 +115,18 @@ export class CanvasComponent {
 
     if(this.isDragging){
       this.isDragging = false;
-      this.endX = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
-      this.endY = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
+      this.x2 = event.clientX - this.canvasRef.nativeElement.getBoundingClientRect().left;
+      this.y2 = event.clientY - this.canvasRef.nativeElement.getBoundingClientRect().top;
 
       const rect = {
-        x1: this.startX,
-        y1: this.startY,
-        x2: this.endX,
-        y2: this.endY
+        x1: this.x1,
+        y1: this.y1,
+        x2: this.x2,
+        y2: this.y2
       }
       this.rectangles.push(rect)
       this.drawRectangle()
-
+      this.openTextModal()
       // this.logRectangleCoordinates();
       // console.log(this.rectangles);
 
@@ -106,7 +138,6 @@ export class CanvasComponent {
     this.rectangles.forEach(rect => {
 
       this.context.strokeRect(rect.x1, rect.y1, rect.x2 - rect.x1, rect.y2 - rect.y1);
-      console.log(rect.x1, rect.y1);
 
     })
     // this.context.stroke();
@@ -118,10 +149,10 @@ export class CanvasComponent {
 
   logRectangleCoordinates():void {
     const touch = {
-      x1: this.startX,
-      y1: this.startY,
-      x2: this.endX,
-      y2: this.endY
+      x1: this.x1,
+      y1: this.y1,
+      x2: this.x2,
+      y2: this.y2
     }
     console.log(touch);
   }
@@ -138,5 +169,47 @@ export class CanvasComponent {
   clearAll(){
     this.rectangles = []
     this.clearCanvas()
+  }
+}
+
+
+@Component({
+  selector: 'text-modal',
+  templateUrl: './text-modal.html',
+  standalone: true,
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
+})
+
+export class TextModal {
+  constructor(
+    public dialogRef: MatDialogRef<TextModal>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private touchService: TouchService,
+    private toastr: ToastrService
+  ){}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  handleAddText():void {
+    let newData = {...this.data}
+    delete newData.page_id
+    this.touchService.addTouch(this.data.page_id, newData).subscribe(result => {
+      this.toastr.success('Successfully!', 'Add text');
+      // window.location.reload()
+    })
+  }
+}
+
+export interface DialogData {
+  page_id: any,
+  text: string
+  file: string,
+  data: {
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number
   }
 }

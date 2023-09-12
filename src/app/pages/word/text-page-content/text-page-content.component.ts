@@ -44,8 +44,4 @@ export class TextPageContentComponent {
     this.dataSource = data
     })
   }
-
-  textOfPage(): void{
-    this.router1.navigate(['/text'])
-  }
 }

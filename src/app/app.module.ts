@@ -15,10 +15,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/login/login.component';
-import { TextComponent } from './pages/text/text.component';
+import { TextComponent } from './pages/page/text/text.component';
 import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
 import { ListStoryComponent } from './components/list-story/list-story.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
 
@@ -38,12 +39,14 @@ import { ListStoryComponent } from './components/list-story/list-story.component
     BrowserAnimationsModule,
     LoginComponent,
     HeaderComponent,
+    SideNavComponent,
     HttpClientModule,
     ListStoryComponent,
     HomeComponent,
     TextComponent,
     WordComponent,
     PageComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

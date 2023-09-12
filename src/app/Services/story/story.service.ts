@@ -22,6 +22,11 @@ export class StoryService {
     return this.httpClient.get<any>(url, this.httpOptions)
   }
 
+  public detailStory(storyId: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${storyId}`
+    return this.httpClient.get<any>(url, this.httpOptions)
+  }
+
   public createtStory(data: any): Observable<any> {
     const url = `${this.REST_API_SERVER}`
     return this.httpClient.post<any>(url, data, this.httpOptions)

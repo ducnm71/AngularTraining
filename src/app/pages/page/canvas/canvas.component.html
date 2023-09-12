@@ -1,8 +1,8 @@
-<div class="mb-3 mr-12 flex gap-2 justify-end">
+<div class="mb-3 flex gap-2 justify-end">
   <button mat-raised-button color="primary" class="" (click)="undo()">Undo</button>
   <button mat-raised-button color="warn" class="" (click)="clearAll()">Clear all</button>
 </div>
-<div class="overflow-y-auto h-[96%]">
+<div class="overflow-y-auto">
 
     <canvas #canvasRef id="canvasId" width="2030" height="1000"
       class="m-auto bg-cover bg-center bg-no-repeat"
@@ -12,6 +12,13 @@
       (mouseup)="handleMouseUp($event)"
       >
     </canvas>
+</div>
+
+<div *ngIf="hasTitle">
+
+  <div class="w-full absolute left-0 top-24">
+    <h1 class="text-4xl text-center">hello</h1>
+  </div>
 </div>
 
 

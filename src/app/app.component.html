@@ -1,7 +1,12 @@
-<div class="bg-slate-100 w-full h-screen"
+<div class="bg-slate-100 w-full min-h-screen"
 *ngIf="checkToken()"
 >
-  <app-header></app-header>
-  <router-outlet></router-outlet>
+  <div class="flex gap-0 w-full">
+    <app-side-nav></app-side-nav>
+    <div class="flex-1">
+      <app-header></app-header>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
 <router-outlet></router-outlet>

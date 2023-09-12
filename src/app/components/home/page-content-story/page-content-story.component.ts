@@ -45,9 +45,12 @@ export class PageContentStoryComponent implements AfterViewInit{
 
   constructor(private router: Router, private pageService: PageService) {}
 
+  firstPage: any
+
   ngOnInit(): void {
     this.pageService.getPages(this.id).subscribe(data => {
       this.dataSource.data = data
+      this.firstPage = this.dataSource.data[0]
     })
   }
 
@@ -57,7 +60,7 @@ export class PageContentStoryComponent implements AfterViewInit{
 
 
   configObject(storyId: number){
-    this.router.navigate(['/page', storyId])
+    this.router.navigate([`story/${storyId}/page/${this.firstPage.id}`])
   }
 
 }

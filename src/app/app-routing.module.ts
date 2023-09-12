@@ -6,7 +6,7 @@ import { ChildComponent } from './components/test/child/child.component';
 // import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { TextComponent } from './pages/text/text.component';
+// import { TextComponent } from './pages/page/text/text.component';
 import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
 import { ListStoryComponent } from './components/list-story/list-story.component';
@@ -16,9 +16,8 @@ const routes: Routes = [
   { path:'main',  component: ListStoryComponent},
   {path: 'story/:id', component: HomeComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'text', component: TextComponent},
   {path: 'word/:storyId', component: WordComponent},
-  {path: 'page/:storyId', component: PageComponent}
+  {path: 'story/:storyId/page/:pageId', component: PageComponent}
   // {path: 'home/:name', component: HomeComponent},
   // {path: 'parent', component: ParentComponent,
   //   children: [

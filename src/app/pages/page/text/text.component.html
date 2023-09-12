@@ -1,0 +1,55 @@
+<div class="w-full  flex flex-col  m-auto  border-2 border-gray-200 rounded-lg shadow-lg">
+  <div class="border-b-2 border-gray-200 flex items-center py-4 pl-6">
+    <h1 class="text-xl font-medium">Text of object in page</h1>
+  </div>
+
+  <div class="w-full m-auto p-4 bg-white">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
+      <!-- Position Column -->
+      <ng-container matColumnDef="Text ID">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> ID Text </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Content">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Content </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500"> {{element.text}} </td>
+      </ng-container>
+
+      <!-- file_audio Column -->
+      <ng-container matColumnDef="File Audio">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> File Audio </th>
+        <td mat-cell *matCellDef="let element">
+          <audio controls class="h-8">
+            <source src={{element.file}} type="audio/ogg">
+            <source src={{element.file}} type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Position">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Position </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500 w-[20%]">pointX: {{element.point_x.toFixed(2)}},  pointY: {{element.point_y.toFixed(2)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Touch">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Touch </th>
+        <td mat-cell *matCellDef="let element" class="text-gray-500 w-[30%]">x1: {{element.data.x1.toFixed(2)}},   y1: {{element.data.y1.toFixed(2)}},  x2: {{element.data.x2.toFixed(2)}},  y2: {{element.data.y2.toFixed(2)}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef class="text-gray-600 font-bold"> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon class="text-gray-600 cursor-pointer">settings</mat-icon>
+          <mat-icon class="text-red-600 cursor-pointer ml-4">delete_outline</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

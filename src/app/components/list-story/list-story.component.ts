@@ -34,14 +34,19 @@ export class ListStoryComponent {
   informations: 1.0079, content: 'Who can tap the can?'}
 
   constructor(private router: Router,
-    private storyService: StoryService,
+    public storyService: StoryService,
     public dialog: MatDialog,
+    private toastr: ToastrService
     ) {}
 
-  ngOnInit(): void {
+  public getStory(): void {
     this.storyService.listStory().subscribe(data => {
-      this.dataSource.data = data
-    })
+      this.dataSource.data = data;
+    });
+  }
+
+  ngOnInit(): void {
+    this.getStory()
   }
 
   storyDetail(storyId: number){
@@ -64,14 +69,14 @@ export class ListStoryComponent {
       data: {author: this.author, name: this.name, thumbnail: this.thumbnail},
     });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getStory()
+    });
   }
   handleDeleleStory(storyId: any){
     this.storyService.deleteStory(storyId).subscribe(data => {
-      console.log(data);
-      window.location.reload();
+      this.getStory()
+      this.toastr.success('Successfully!', 'Delete story');
     })
   }
 
@@ -89,7 +94,8 @@ export class DialogOverviewExampleDialog {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private storyService: StoryService,
     private toastr: ToastrService
-  ) {}
+  ) {
+  }
 
 
 
@@ -99,9 +105,7 @@ export class DialogOverviewExampleDialog {
 
   handleAddStory():void {
     this.storyService.createtStory(this.data).subscribe(data => {
-        console.log(data);
-        // this.toastr.success('Story created successfully!', 'Success');
-        window.location.reload();
+        this.toastr.success('Successfully!', 'Add story');
   })
   }
 }

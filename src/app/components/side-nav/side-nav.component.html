@@ -1,0 +1,18 @@
+<div class="h-screen drop-shadow-xl bg-white">
+
+  <mat-drawer-container class="example-container" autosize class="h-[158vh] bg-white">
+    <mat-drawer #drawer class="example-sidenav mt-[47px] px-4 border-t-2 border-gray-300" mode="side">
+      <button (click)="listStory()" mat-raised class="font-bold text-xl text-slate-500 mt-20 flex gap-2">
+        <h1>List Story</h1>
+        <mat-icon>home</mat-icon>
+      </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content border-b-2 border-gray-300 flex items-center h-12">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <mat-icon class="text-xl text-slate-500">menu</mat-icon>
+      </button>
+    </div>
+
+  </mat-drawer-container>
+</div>

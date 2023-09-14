@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, HostListener, Input, Inject} from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener, Input, Inject, OnInit} from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
@@ -9,8 +9,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { TouchService } from 'src/app/Services/touch/touch.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from 'src/app/Services/data.service';
 
 @Component({
   selector: 'app-canvas',
@@ -22,15 +23,22 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CanvasComponent {
   @Input() bg: string = '';
+
   @ViewChild('canvasRef') canvasRef!: ElementRef<HTMLCanvasElement>
   context!: CanvasRenderingContext2D
 
-  constructor(public dialog: MatDialog, private router: ActivatedRoute,){}
+  constructor(public dialog: MatDialog,
+    private router: Router,
+    private router1: ActivatedRoute,
+    private dataService: DataService,
+    private touchService: TouchService){}
+
   hasTitle: boolean = false
   text: string = ''
   file: string = ''
   page_id: any
-  change: boolean = false
+
+
 
   openTextModal():void {
     const dialogRef = this.dialog.open(TextModal, {
@@ -48,21 +56,45 @@ export class CanvasComponent {
     })
 
     dialogRef.afterClosed().subscribe(() => {
-      this.change = true
+      this.dataService.setData('Update data');
+      this.dataService.getData().subscribe(data => {
+        if(data === 'Undo'){
+          // this.undo()
+        }
+      });
     })
   }
 
+
+  public getAllTouch(page_id: any) {
+    this.touchService.getAllTouch(page_id).subscribe(data => {
+    this.clearAll()
+    this.rectangles = data.map((item: any) => item.data)
+    this.rectangles.forEach(rect => {
+      this.context.strokeRect(rect.x1, rect.y1, rect.x2 - rect.x1, rect.y2 - rect.y1);
+    })
+
+  })
+  }
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe(params => {
+    this.restartOnInit()
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.restartOnInit();
+      }
+    });
+  }
+  restartOnInit() {
+    this.router1.paramMap.subscribe(params => {
       this.page_id = params.get('pageId')
     })
+    this.getAllTouch(this.page_id)
   }
 
+
   ngAfterViewInit(): void {
-    // console.log(this.bg);
     const canvasEl = this.canvasRef.nativeElement
-    // const context = canvasEl.getContext('2d')
     this.context = canvasEl.getContext('2d')!
  }
 
@@ -91,6 +123,7 @@ export class CanvasComponent {
   private x2 = 0;
   private y2 = 0;
   private rectangles: any[] = [];
+
 
   handleMouseDown(event: MouseEvent):void {
 
@@ -185,10 +218,12 @@ export class TextModal {
     public dialogRef: MatDialogRef<TextModal>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private touchService: TouchService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dataService: DataService
   ){}
 
   onNoClick(): void {
+    this.dataService.setData('Undo');
     this.dialogRef.close();
   }
 

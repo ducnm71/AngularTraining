@@ -3,6 +3,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { TouchService } from 'src/app/Services/touch/touch.service';
 import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'src/app/Services/data.service';
 
 
 export interface PeriodicElement {
@@ -28,20 +29,41 @@ const ELEMENT_DATA: PeriodicElement[] = [];
 export class TextComponent implements OnInit {
 
   @Input() page_id: any;
+  receivedData: string = '';
 
-  constructor (private touchService: TouchService, private router: ActivatedRoute) {}
+  constructor (private touchService: TouchService, private router: ActivatedRoute, private dataService: DataService) {}
 
+  path: any
   public getAllTouch() {
    this.touchService.getAllTouch(this.page_id).subscribe(data => {
     this.dataSource = data
   })
   }
 
+  handlePath(path: any) {
+    if (path.includes('fake') ){
+
+      const newPath = path.replace(/^.*[\\\/]/, '')
+      return newPath
+    }
+    else {
+      return path
+    }
+  }
+
+
+
   ngOnInit(): void {
     this.router.paramMap.subscribe(params => {
       this.page_id = params.get('pageId')
       this.getAllTouch()
     })
+    this.dataService.getData().subscribe(data => {
+      this.receivedData = data;
+      this.getAllTouch()
+    });
+
+    this.dataService.clearData();
   }
 
 

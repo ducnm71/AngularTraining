@@ -1,0 +1,21 @@
+<div class="w-[450px]">
+
+  <div mat-dialog-content class="">
+    <h1 class="text-black text-lg mb-4">Add New Page</h1>
+    <div class="flex flex-col">
+      <mat-form-field>
+        <mat-label>Page number</mat-label>
+        <input matInput [(ngModel)]="data.page_number">
+      </mat-form-field>
+
+      <div class="flex gap-2 items-center">
+        <label class="text-black">Background</label>
+        <input type="file" [(ngModel)]="data.background">
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" class="ml-auto">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="handleAddPage()">Add</button>
+  </div>
+</div>

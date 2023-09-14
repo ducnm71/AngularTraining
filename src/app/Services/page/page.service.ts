@@ -25,4 +25,9 @@ export class PageService {
     return this.httpClient.get<any>(url, this.httpOptions)
   }
 
+  public addPage(id: any, data: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${id}`
+    return this.httpClient.post<any>(url, data, this.httpOptions)
+  }
+
 }

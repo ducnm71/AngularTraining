@@ -53,7 +53,7 @@ export class PageComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        this.getPages(this.storyId)
+        // this.getPages(this.storyId)
       });
     }
 

@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormGroupDirective, Ng
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,7 +26,11 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class LoginComponent {
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService){}
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private toastr: ToastrService,
+    ){}
 
   public formData = this.fb.group({
     email: ['', Validators.required],
@@ -59,6 +64,7 @@ export class LoginComponent {
     const dataLogin = this.formData.getRawValue()
     this.userService.signIn(dataLogin).subscribe(data => {
       // console.log(data.jwt);
+      this.toastr.success('Successfully!', 'Login');
       localStorage.setItem('token', data.jwt)
       window.location.replace('/main')
     })

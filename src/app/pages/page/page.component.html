@@ -4,10 +4,10 @@
       <mat-icon class="text-sky-600">arrow_back</mat-icon>
       <p class="text-sky-600 text-lg">Back story detail</p>
     </div>
-    <h1 class="text-xl">Config object: Who can Tap the Can?</h1>
+    <h1 class="text-xl">Config object: {{ storyName }}</h1>
   </div>
   <div class=" flex items-center gap-2">
-    <button class="" mat-raised-button><mat-icon class="m-0">cached</mat-icon></button>
+    <button (click)="openDialog()" mat-raised-button><mat-icon>add</mat-icon>New page</button>
   </div>
 </div>
 

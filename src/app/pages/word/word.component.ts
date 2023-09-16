@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 
 import {MatButtonModule} from '@angular/material/button';
@@ -14,7 +16,8 @@ import { TextPageContentComponent } from './text-page-content/text-page-content.
   templateUrl: './word.component.html',
   styleUrls: ['./word.component.css'],
   standalone: true,
-  imports: [StoryComponent,TextPageContentComponent ,MatButtonModule,MatIconModule],
+  imports: [StoryComponent,TextPageContentComponent ,MatButtonModule,MatIconModule, CommonModule,
+    FormsModule,],
 })
 export class WordComponent {
 
@@ -31,6 +34,11 @@ export class WordComponent {
 
   backStory(){
     this.router1.navigate(['/story', this.storyId])
+  }
+
+  openTab = 1;
+  toggleTabs($tabNumber: number){
+    this.openTab = $tabNumber;
   }
 
 }

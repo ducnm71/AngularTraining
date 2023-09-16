@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TouchService } from 'src/app/Services/touch/touch.service';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/Services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 export interface PeriodicElement {
@@ -31,7 +32,11 @@ export class TextComponent implements OnInit {
   @Input() page_id: any;
   receivedData: string = '';
 
-  constructor (private touchService: TouchService, private router: ActivatedRoute, private dataService: DataService) {}
+  constructor (private touchService: TouchService,
+    private router: ActivatedRoute,
+    private dataService: DataService,
+    private toastr: ToastrService,
+    ) {}
 
   path: any
   public getAllTouch() {
@@ -60,10 +65,21 @@ export class TextComponent implements OnInit {
     })
     this.dataService.getData().subscribe(data => {
       this.receivedData = data;
-      this.getAllTouch()
+      if(this.receivedData === 'Update data'){
+        this.getAllTouch()
+      }
     });
 
     this.dataService.clearData();
+  }
+
+  handleDeleteTouch(touch_id: any) {
+    this.touchService.deleteTouch(touch_id).subscribe(data => {
+      this.getAllTouch()
+      this.dataService.setData('Update data');
+      this.toastr.success('Successfully!', 'Delete touch');
+    })
+
   }
 
 

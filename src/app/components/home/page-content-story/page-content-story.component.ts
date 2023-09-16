@@ -60,7 +60,12 @@ export class PageContentStoryComponent implements AfterViewInit{
 
 
   configObject(storyId: number){
-    this.router.navigate([`story/${storyId}/page/${this.firstPage.id}`])
+    if(!this.firstPage){
+      this.router.navigate([`story/${storyId}/page/xxx`])
+    }else{
+
+      this.router.navigate([`story/${storyId}/page/${this.firstPage.id}`])
+    }
   }
 
 }

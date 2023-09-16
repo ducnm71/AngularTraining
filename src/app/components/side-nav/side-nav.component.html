@@ -3,9 +3,13 @@
   <mat-drawer-container class="example-container" autosize class="h-[158vh] bg-white">
     <mat-drawer #drawer class="example-sidenav mt-[47px] px-4 border-t-2 border-gray-300" mode="side">
       <button (click)="listStory()" mat-raised class="font-bold text-xl text-slate-500 mt-20 flex gap-2">
-        <h1>List Story</h1>
         <mat-icon>home</mat-icon>
+        <h1>List Story</h1>
       </button>
+      <div class="mt-4 flex items-center gap-1 cursor-pointer font-bold text-xl text-slate-500" (click)="backToConfig()">
+        <mat-icon >arrow_back</mat-icon>
+        <h1>Config Object</h1>
+      </div>
     </mat-drawer>
 
     <div class="example-sidenav-content border-b-2 border-gray-300 flex items-center h-12">

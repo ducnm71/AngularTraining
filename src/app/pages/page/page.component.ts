@@ -4,6 +4,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -25,7 +26,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./page.component.css'],
   standalone: true,
   imports: [MatIconModule, MatButtonModule, MatTabsModule, CommonModule, MatPaginatorModule, CanvasComponent, TextComponent,
-    MatFormFieldModule, MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule]
+    MatFormFieldModule, MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule, MatMenuModule]
 })
 
 export class PageComponent implements OnInit {
@@ -45,20 +46,25 @@ export class PageComponent implements OnInit {
     private router2: ActivatedRoute,
     private pageService: PageService,
     public dialog: MatDialog,
+    private toastr: ToastrService,
     ) {}
 
     openDialog(): void {
       const dialogRef = this.dialog.open(PageModal, {
-        data: {page_number: this.pages[this.pages?.length - 1]['page_number'] , background: this.background},
+        data: {storyId: this.storyId, page_number: this.page_number , background: this.background},
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        // this.getPages(this.storyId)
+        this.getPages(this.storyId)
       });
     }
 
   backStory(){
     this.router1.navigate(['/story', this.storyId])
+  }
+
+  preview() {
+    this.router1.navigate([`/story/${this.storyId}/preview/${this.pageId}`])
   }
 
   getStoryName(storyId: any) {
@@ -83,12 +89,29 @@ export class PageComponent implements OnInit {
     this.getPages(this.storyId)
   }
 
+  handlePath(path: any) {
+    if (path.includes('fake') ){
+
+      const newPath = path.replace(/^.*[\\\/]/, '')
+      return newPath
+    }
+    else {
+      return path
+    }
+  }
 
   onTabChange(event: any) {
     this.selectedPage = this.pages[event.index];
     this.pageId = this.selectedPage.id
-    this.bgPageSelected = this.selectedPage.background
+    this.bgPageSelected = this.handlePath(this.selectedPage.background)
     this.router1.navigate([`story/${this.storyId}/page/${this.pageId}`])
+  }
+
+  removePage(id: any) {
+    this.pageService.removePage(id).subscribe(data => {
+      this.getPages(this.storyId)
+      this.toastr.success('Successfully!', 'Remove page');
+    })
   }
 }
 
@@ -111,26 +134,23 @@ export class PageModal {
   ) {
   }
 
-  ngOnInit(): void {
-    this.router.paramMap.subscribe(params => {
-      this.storyId = params.get('storyId')
-    })
-  }
-
-
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   handleAddPage():void {
-    this.pageService.addPage(this.storyId, this.data).subscribe(data => {
+    let newData = {...this.data}
+    delete newData.storyId
+    this.pageService.addPage(this.data.storyId, newData).subscribe(data => {
       this.toastr.success('Successfully!', 'Add page');
     })
   }
+
 }
 
 
 export interface DialogData {
+  storyId: any
   page_number: number
   background: string
 }

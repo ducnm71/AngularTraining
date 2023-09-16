@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
 import { ListStoryComponent } from './components/list-story/list-story.component';
+import { PreviewComponent } from './pages/preview/preview.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'story/:id', component: HomeComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'word/:storyId', component: WordComponent},
-  {path: 'story/:storyId/page/:pageId', component: PageComponent}
+  {path: 'story/:storyId/page/:pageId', component: PageComponent},
+  {path: 'story/:storyId/preview/:pageId', component: PreviewComponent}
   // {path: 'home/:name', component: HomeComponent},
   // {path: 'parent', component: ParentComponent,
   //   children: [

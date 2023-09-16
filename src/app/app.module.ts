@@ -20,6 +20,7 @@ import { WordComponent } from './pages/word/word.component';
 import { PageComponent } from './pages/page/page.component';
 import { ListStoryComponent } from './components/list-story/list-story.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { PreviewComponent } from './pages/preview/preview.component';
 
 
 
@@ -46,7 +47,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
     TextComponent,
     WordComponent,
     PageComponent,
-
+    PreviewComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

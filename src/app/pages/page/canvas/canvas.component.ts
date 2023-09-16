@@ -24,6 +24,7 @@ import { DataService } from 'src/app/Services/data.service';
 export class CanvasComponent {
   @Input() bg: string = '';
 
+
   @ViewChild('canvasRef') canvasRef!: ElementRef<HTMLCanvasElement>
   context!: CanvasRenderingContext2D
 
@@ -92,10 +93,18 @@ export class CanvasComponent {
     this.getAllTouch(this.page_id)
   }
 
-
+  receivedData: string = '';
   ngAfterViewInit(): void {
     const canvasEl = this.canvasRef.nativeElement
     this.context = canvasEl.getContext('2d')!
+
+    this.dataService.getData().subscribe(data => {
+      this.receivedData = data;
+      if(this.receivedData === 'Update data'){
+        this.getAllTouch(this.page_id)
+        this.dataService.clearData()
+      }
+    });
  }
 
   @HostListener('dblclick', ['$event'])

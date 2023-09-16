@@ -30,4 +30,9 @@ export class PageService {
     return this.httpClient.post<any>(url, data, this.httpOptions)
   }
 
+  public removePage(id: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${id}`
+    return this.httpClient.delete<any>(url, this.httpOptions)
+  }
+
 }

@@ -26,4 +26,9 @@ export class TouchService {
     const url = `${this.REST_API_SERVER}/${page_id}`
     return this.httpClient.post<any>(url, data, this.httpOptions)
   }
+
+  public deleteTouch(touch_id: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${touch_id}`
+    return this.httpClient.delete<any>(url, this.httpOptions)
+  }
 }

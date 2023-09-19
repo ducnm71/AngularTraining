@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   private dataSubject = new BehaviorSubject<any>('');
+  private title = new BehaviorSubject<any>({});
   constructor() { }
 
   getData() {
@@ -18,5 +19,17 @@ export class DataService {
 
   clearData() {
     this.dataSubject.next('');
+  }
+
+  getTitle() {
+    return this.title.asObservable()
+  }
+
+  setTitle(data: object){
+    this.title.next(data)
+  }
+
+  clearTitle(){
+    return this.title.next({})
   }
 }

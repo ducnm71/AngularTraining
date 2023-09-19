@@ -25,12 +25,7 @@ export class SideNavComponent {
   }
 
   backToConfig() {
-    // this.router2.paramMap.subscribe(params => {
-    //   this.storyId = params.get('storyId')
-    //   this.pageId = params.get('pageId')
-    // })
-    // console.log(this.pageId);
-
-    // this.router1.navigate([`story/${this.storyId}/page/${this.pageId}`])
+    localStorage.removeItem('token');
+    window.location.replace('/login');
   }
 }

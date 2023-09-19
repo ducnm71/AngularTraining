@@ -30,12 +30,12 @@
   </ul>
 
   <div  class="flex flex-row items-center justify-center pr-10">
-    <button class="flex flex-row-reverse items-center gap-1" mat-button [matMenuTriggerFor]="menu">
-      <p class=" text-gray-500" (click)="logOut()">KT_Minh_Duc</p>
+    <button class="flex flex-row-reverse items-center gap-1" mat-button [matMenuTriggerFor]="menu1">
+      <p class=" text-gray-500">KT_Minh_Duc</p>
       <mat-icon class="text-gray-500">arrow_drop_down</mat-icon>
-      <mat-menu #menu="matMenu">
+      <mat-menu #menu1="matMenu">
         <button mat-menu-item>Profile</button>
-        <button >Logout</button>
+        <button mat-menu-item (click)="logOut()">Logout</button>
       </mat-menu>
     </button>
     <img src="../../../assets/logo.jpg" class="w-12" alt="">

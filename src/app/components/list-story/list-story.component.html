@@ -6,7 +6,9 @@
   <h1 class="text-2xl text-slate-600 font-bold">List Story</h1>
   <div class="flex items-center">
     <mat-icon class="absolute pl-1 text-gray-400">search</mat-icon>
-    <input type="text" placeholder="Enter the story name..." class="w-96 h-12 pl-10 border-4 rounded-xl border-">
+    <input type="text" placeholder="Enter the story name..."
+      class="w-96 h-12 pl-10 border-4 rounded-xl border-"
+      (keyup)="handleFilter($event)">
   </div>
 </div>
 

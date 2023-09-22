@@ -7,10 +7,21 @@
         <mat-label>Text</mat-label>
         <input matInput [(ngModel)]="data.text">
       </mat-form-field>
+
+      <mat-form-field class="mt-2">
+        <mat-label>Sync Text</mat-label>
+        <textarea matInput [(ngModel)]="data.syncText"></textarea>
+      </mat-form-field>
+
       <div class="flex gap-2 items-center">
         <label class="text-black">Audio</label>
         <input type="file" [(ngModel)]="data.file">
       </div>
+      <div class="flex gap-[19px] items-center mt-2">
+        <label class="text-black">Icon</label>
+        <input type="file">
+      </div>
+
     </div>
 
     <div class="mt-3 flex gap-2 justify-between">

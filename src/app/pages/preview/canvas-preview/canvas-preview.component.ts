@@ -5,6 +5,7 @@ import { DataService } from 'src/app/Services/data.service';
 import { TouchService } from 'src/app/Services/touch/touch.service';
 
 import {MatButtonModule} from '@angular/material/button';
+import { animate } from '@angular/animations';
 
 
 @Component({
@@ -19,11 +20,15 @@ export class CanvasPreviewComponent {
   @Input() bg: string = '';
 
   @ViewChild('canvasRef') canvasRef!: ElementRef<HTMLCanvasElement>
+  @ViewChild('canvasRef2') canvasRef2!: ElementRef<HTMLCanvasElement>
   context!: CanvasRenderingContext2D
+  context2!: CanvasRenderingContext2D
 
   private rectangles: any[] = [];
   page_id: any
   title: any
+  syncText: any
+
 
   constructor(
     private router: Router,
@@ -35,8 +40,10 @@ export class CanvasPreviewComponent {
     this.touchService.getAllTouch(page_id).subscribe(data => {
       this.rectangles = data
       this.title = this.rectangles.filter((item: any) => {
-        return item.text.split(' ').length >= 3
+        return item.syncText !== null
       })
+      this.syncText = JSON.parse(this.title[0].syncText)
+      this.syncText = JSON.parse(this.syncText)
     })
   }
 
@@ -68,7 +75,9 @@ export class CanvasPreviewComponent {
 
   ngAfterViewInit(): void {
     const canvasEl = this.canvasRef.nativeElement
+    const canvasEl2 = this.canvasRef2.nativeElement
     this.context = canvasEl.getContext('2d')!
+    this.context2 = canvasEl2.getContext('2d')!
  }
 
   handlePath(path: any) {
@@ -82,7 +91,7 @@ export class CanvasPreviewComponent {
   }
 
  text(event: MouseEvent){
-  const canvasRect = this.canvasRef.nativeElement.getBoundingClientRect()
+  const canvasRect = this.canvasRef2.nativeElement.getBoundingClientRect()
 
   const x = event.clientX - canvasRect.left;
   const y = event.clientY - canvasRect.top;
@@ -95,6 +104,7 @@ export class CanvasPreviewComponent {
 
   if (clickedObject) {
     // Nếu có đối tượng thỏa mãn, hiển thị văn bản trên canvas và phát âm thanh
+    this.isTextVisible = true;
     this.drawText(clickedObject.text, clickedObject.point_x, clickedObject.point_y);
     this.playAudio(clickedObject.file);
   }
@@ -103,29 +113,27 @@ export class CanvasPreviewComponent {
 
   isTextVisible: boolean = false
 
-  showTitle(){
-    // this.context.fillStyle = 'black';
-    // this.context.font = '35px Arial';
-    // this.context.fillText(this.title[0].text, this.title[0].point_x, this.title[0].point_y);
-    this.playAudio(this.title[0].file)
-  }
-
   private drawText(text: string, x: number, y: number) {
     // Xóa nội dung canvas cũ (nếu cần)
-    this.context.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
+    if(this.isTextVisible) {
 
-    // Vẽ đoạn text tại vị trí đã cho
-    this.context.fillStyle = 'blue';
-    // this.context.fillStyle = 'rgba(128, 128, 128, 0.7)'
-    // this.context.fillRect(x - 80, y-60 , 200, 100)
-    this.context.font = '35px Arial';
-    this.context.fillText(text, x, y);
-    this.isTextVisible = true;
+      this.context2.clearRect(0, 0, this.canvasRef2.nativeElement.width, this.canvasRef2.nativeElement.height);
+
+      // Vẽ đoạn text tại vị trí đã cho
+      // this.context2.fillStyle = 'black';
+      this.context2.fillStyle = 'rgba(128, 128, 128, 0.7)'
+      this.context2.fillRect(x - 15, y-60 , this.context2.measureText(text).width + 30, 100)
+      // this.context2.fill()
+
+      this.context2.fillStyle = 'black';
+      this.context2.font = '35px Arial';
+      this.context2.fillText(text, x, y);
+    }
 
     // Đặt timeout để sau 2 giây đoạn text biến mất
     setTimeout(() => {
-      this.clearCanvas();
       this.isTextVisible = false;
+      this.clearCanvas(this.context2, this.canvasRef2);
     }, 2000);
   }
 
@@ -134,7 +142,62 @@ export class CanvasPreviewComponent {
     audio.play();
   }
 
-  private clearCanvas() {
-    this.context.clearRect(0, 0, this.canvasRef.nativeElement.width, this.canvasRef.nativeElement.height);
+  private clearCanvas(ctx: any, cvr: any) {
+    ctx.clearRect(0, 0, cvr.nativeElement.width, cvr.nativeElement.height);
   }
+
+  currentIndex: number = 0;
+
+  showTitle() {
+    const x = 1015-this.context.measureText(this.title[0].text).width/2
+    this.highlightTitle(x)
+    this.playAudio(this.title[0].file)
+  }
+
+  highlightTitle(x: number){
+    this.currentIndex = 0
+    this.animateTitle(x)
+  }
+
+  animateTitle(x: number){
+    if(this.currentIndex >= this.syncText.length){
+      return
+    }
+
+    const currentWord = this.syncText[this.currentIndex]
+    const startTime = Date.now()
+    const animate = () => {
+      const currentTime = Date.now()
+      const timeRun = (currentTime - startTime) / (currentWord.e - currentWord.s)
+      if(timeRun >= 1){
+        this.clearCanvas(this.context, this.canvasRef)
+        this.highlightingTitle(currentWord, x)
+        this.currentIndex++
+
+        if(this.currentIndex < this.syncText.length){
+          this.animateTitle(x)
+        }
+      }else{
+        this.clearCanvas(this.context, this.canvasRef)
+        this.highlightingTitle(currentWord, x)
+        requestAnimationFrame(animate)
+      }
+    }
+    requestAnimationFrame(animate)
+  }
+
+  highlightingTitle(currentWord: any, x: number){
+    this.context.font = '35px Arial';
+    let currentX = x
+    for(let i=0; i<this.syncText.length; i++){
+      let word = this.syncText[i].w
+      this.context.fillStyle = 'black';
+      if (word === currentWord.w) this.context.fillStyle = 'red'
+      this.context.fillText(word, currentX, 60);
+      let wordWidth = this.context.measureText(word).width
+      currentX += wordWidth + 10
+    }
+  }
+
+
 }

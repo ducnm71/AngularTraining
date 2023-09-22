@@ -11,10 +11,20 @@
         <mat-label>Content</mat-label>
         <input matInput [(ngModel)]="data.name">
       </mat-form-field>
+
+      <mat-radio-group [(ngModel)]="data.type">
+        <mat-radio-button *ngFor="let item of typeOfStory" [value] = "item">
+            {{ item }}
+        </mat-radio-button>
+      </mat-radio-group>
+
       <div class="flex gap-2 items-center">
         <label class="text-black">Thumbnail</label>
         <input type="file" [(ngModel)]="data.thumbnail">
       </div>
+
+
+
     </div>
   </div>
   <div mat-dialog-actions>

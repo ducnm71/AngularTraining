@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule, NgIf, NgFor} from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 
 import { Router } from '@angular/router';
@@ -23,7 +24,7 @@ import { AddStoryComponent } from './add-story/add-story.component';
   styleUrls: ['./list-story.component.css'],
   standalone: true,
   imports: [MatIconModule, MatTableModule, MatPaginatorModule, MatButtonModule, AddStoryComponent, CommonModule, MatFormFieldModule,
-    MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule]
+    MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule, NgFor, MatRadioModule]
 })
 export class ListStoryComponent {
   displayedColumns: string[] = ['ID Stories', 'Thumbnail', 'Informations', 'Content', 'Actions'];
@@ -65,12 +66,12 @@ export class ListStoryComponent {
   //modal
   author: string = '';
   name: string ='';
+  type: string = '';
   thumbnail: string = '';
-
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      data: {author: this.author, name: this.name, thumbnail: this.thumbnail},
+      data: {author: this.author, name: this.name, thumbnail: this.thumbnail, type: this.type},
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -90,9 +91,12 @@ export class ListStoryComponent {
   selector: 'dialog-overview-example-dialog',
   templateUrl: './dialog-overview-example-dialog.html',
   standalone: true,
-  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule],
+  imports: [MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatRadioModule, NgFor],
 })
 export class DialogOverviewExampleDialog {
+
+  typeOfStory: string[] = ['Truyện tĩnh', 'Truyện Icon', 'Truyện Animation']
+
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -124,6 +128,7 @@ export interface PeriodicElement {
 export interface DialogData {
   author: string
   name: string
+  type: string
   thumbnail: string
 }
 

@@ -37,6 +37,7 @@ export class CanvasComponent {
   hasTitle: boolean = false
   text: string = ''
   file: string = ''
+  syncText: string = ''
   page_id: any
 
 
@@ -47,6 +48,7 @@ export class CanvasComponent {
         page_id: this.page_id,
         text: this.text,
         file: this.file,
+        syncText: this.syncText,
         data: {
           x1: this.x1,
           y1: this.y1,
@@ -249,7 +251,8 @@ export class TextModal {
 export interface DialogData {
   page_id: any,
   text: string
-  file: string,
+  file: string
+  syncText: string
   data: {
     x1: number,
     y1: number,

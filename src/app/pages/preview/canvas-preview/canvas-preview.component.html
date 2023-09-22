@@ -1,15 +1,21 @@
 
 <!-- <h1 class="absolute left-[37%] top-5 text-3xl text-slate-500 font-bold">{{ title?.text }}</h1> -->
-<!-- <button mat-raised-button (click)="showTitle()"
-  class="absolute top-0 left-[94%]"
->Show Title</button> -->
+<button mat-button (click)="showTitle()"
+  class="absolute top-10 left-[95%] z-1000 font-bold"
+>Show Title</button>
 <div class="overflow-y-auto">
-<h1 (click)="showTitle()" class="cursor-pointer absolute top-6 left-[37.5%] text-3xl text-slate-500 font-bold">{{ title[0]?.text }}</h1>
+<!-- <h1 (click)="showTitle()" class="cursor-pointer absolute top-6 left-[37.5%] text-3xl text-slate-500 font-bold">{{ title[0]?.text }}</h1> -->
+
 
   <canvas #canvasRef id="canvasId" width="2030" height="1000"
-        class="m-auto bg-cover bg-center bg-no-repeat"
+        class="m-auto bg-cover bg-center bg-no-repeat "
         [style.background-image]="'url(' + '../../../../assets/pages/'  + bg + ')'"
-        (click)="text($event)"
         >
   </canvas>
+  <canvas #canvasRef2 id="canvasId2" width="2030" height="1000"
+  class="m-auto bg-cover bg-center bg-no-repeat absolute top-12"
+  (click)="text($event)"
+  >
+  </canvas>
+
 </div>

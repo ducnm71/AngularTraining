@@ -1,0 +1,14 @@
+{"word_id":40000193,"text":"Hey, do you want to eat some salads?","name_display":"page-story-4131-Hey, do you want to eat some salads?","path_word":"sc0os6im92jsza0sop9zdvd5dav9d4ld_234728.zip","sentence_type":0,"image":[],"video":[],"audio":[{"id":120192,"link":"audio/eKXepqAoJamyapUvA1bXFn1672979120610.mp3","file_path":"eKXepqAoJamyapUvA1bXFn1672979120610.mp3","duration":3672,"voices_id":65,
+"sync_data":
+[
+  {"e":900,"s":0,"te":3,"ts":0,"w":"Hey,"},
+  {"e":1090,"s":900,"te":6,"ts":5,"w":"do"},
+  {"e":1300,"s":1090,"te":10,"ts":8,"w":"you"},
+  {"e":1660,"s":1300,"te":15,"ts":12,"w":"want"},
+  {"e":1850,"s":1660,"te":18,"ts":17,"w":"to"},
+  {"e":2100,"s":1850,"te":22,"ts":20,"w":"eat"},
+  {"e":2450,"s":2100,"te":27,"ts":24,"w":"some"},
+  {"e":3530,"s":2450,"te":35,"ts":29,"w":"salads?"}
+]
+}],"audio_effect":[],"gaf":[],"spine":[],"animation":[],"color":{"text":"","highlight":""},"filter_word":[],"phonic":[],"list_not_game":[]}
+

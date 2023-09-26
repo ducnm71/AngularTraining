@@ -18,7 +18,12 @@ export class StoryService {
   }
 
   public listStory(): Observable<any> {
-    const url = `${this.REST_API_SERVER}`
+    const url = `${this.REST_API_SERVER}/1`
+    return this.httpClient.get<any>(url, this.httpOptions)
+  }
+
+  public paginateStories(currentPage: any): Observable<any> {
+    const url = `${this.REST_API_SERVER}/${currentPage}`
     return this.httpClient.get<any>(url, this.httpOptions)
   }
 

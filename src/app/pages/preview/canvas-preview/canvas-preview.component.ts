@@ -28,6 +28,9 @@ export class CanvasPreviewComponent {
   page_id: any
   title: any
   syncText: any
+  timer!: number
+  currentIndex: number = 0;
+  isTextVisible: boolean = false
 
 
   constructor(
@@ -47,10 +50,11 @@ export class CanvasPreviewComponent {
     })
   }
 
-
-    // hehe = this.rectangles.filter((item: any) => {
-    //   return item.text.split(' ').length >= 3
-    // })
+  handleSyncText(){
+    const s = this.syncText[this.syncText.length - 1].e
+    const e = this.syncText[this.syncText.length - 1].e + 100
+    this.syncText.push({s: s, e: e, w: ''})
+  }
 
   ngOnInit(): void {
     this.restartOnInit()
@@ -75,10 +79,10 @@ export class CanvasPreviewComponent {
 
   ngAfterViewInit(): void {
     const canvasEl = this.canvasRef.nativeElement
-    const canvasEl2 = this.canvasRef2.nativeElement
     this.context = canvasEl.getContext('2d')!
+    const canvasEl2 = this.canvasRef2.nativeElement
     this.context2 = canvasEl2.getContext('2d')!
- }
+}
 
   handlePath(path: any) {
     if (path.includes('fake') ){
@@ -107,31 +111,27 @@ export class CanvasPreviewComponent {
     this.isTextVisible = true;
     this.drawText(clickedObject.text, clickedObject.point_x, clickedObject.point_y);
     this.playAudio(clickedObject.file);
+    this.jumbText(clickedObject.text)
   }
 
 }
 
-  isTextVisible: boolean = false
 
   private drawText(text: string, x: number, y: number) {
-    // Xóa nội dung canvas cũ (nếu cần)
     if(this.isTextVisible) {
-
       this.context2.clearRect(0, 0, this.canvasRef2.nativeElement.width, this.canvasRef2.nativeElement.height);
-
-      // Vẽ đoạn text tại vị trí đã cho
-      // this.context2.fillStyle = 'black';
-      this.context2.fillStyle = 'rgba(128, 128, 128, 0.7)'
+      this.context2.fillStyle = 'rgba(128, 128, 128, 0.5)'
       this.context2.fillRect(x - 15, y-60 , this.context2.measureText(text).width + 30, 100)
-      // this.context2.fill()
 
       this.context2.fillStyle = 'black';
       this.context2.font = '35px Arial';
       this.context2.fillText(text, x, y);
     }
 
-    // Đặt timeout để sau 2 giây đoạn text biến mất
-    setTimeout(() => {
+    if(this.timer){
+      clearTimeout(this.timer)
+    }
+    this.timer = window.setTimeout(() => {
       this.isTextVisible = false;
       this.clearCanvas(this.context2, this.canvasRef2);
     }, 2000);
@@ -146,10 +146,46 @@ export class CanvasPreviewComponent {
     ctx.clearRect(0, 0, cvr.nativeElement.width, cvr.nativeElement.height);
   }
 
-  currentIndex: number = 0;
+  jumbText(text: any){
+    this.clearCanvas(this.context, this.canvasRef)
+    let currentX = 1015-this.context.measureText(this.title[0].text).width/2
+    this.context.font = '35px Arial';
+    for(let i=0; i<this.syncText.length; i++){
+      let word = this.syncText[i].w
+      this.context.fillStyle = 'black';
+      if (word === text){
+        this.context.fillStyle = 'red'
+        this.context.fillText(word, currentX, 40);
+        let widthWord = this.context.measureText(word).width
+        currentX += widthWord + 10
+      } else{
+        this.context.fillText(word, currentX, 60);
+        let wordWidth = this.context.measureText(word).width
+        currentX += wordWidth + 10
+      }
+    }
+
+    setTimeout(() => {
+      this.clearCanvas(this.context, this.canvasRef)
+      this.drawTitle()
+    }, 2000)
+  }
+
+  drawTitle(){
+    let currentX = 1015-this.context.measureText(this.title[0].text).width/2
+    this.context.font = '35px Arial';
+    this.context.fillStyle = 'black';
+    for(let i=0; i<this.syncText.length; i++){
+      let word = this.syncText[i].w
+      this.context.fillText(word, currentX, 60);
+      let wordWidth = this.context.measureText(word).width
+      currentX += wordWidth + 10
+    }
+  }
 
   showTitle() {
     const x = 1015-this.context.measureText(this.title[0].text).width/2
+    this.handleSyncText()
     this.highlightTitle(x)
     this.playAudio(this.title[0].file)
   }
@@ -173,7 +209,6 @@ export class CanvasPreviewComponent {
         this.clearCanvas(this.context, this.canvasRef)
         this.highlightingTitle(currentWord, x)
         this.currentIndex++
-
         if(this.currentIndex < this.syncText.length){
           this.animateTitle(x)
         }
@@ -198,6 +233,5 @@ export class CanvasPreviewComponent {
       currentX += wordWidth + 10
     }
   }
-
 
 }

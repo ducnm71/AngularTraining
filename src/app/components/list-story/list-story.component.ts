@@ -2,7 +2,7 @@ import { Component, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { CommonModule, NgIf, NgFor} from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -27,6 +27,9 @@ import { AddStoryComponent } from './add-story/add-story.component';
     MatInputModule, FormsModule, NgIf, MatDialogModule, ReactiveFormsModule, NgFor, MatRadioModule]
 })
 export class ListStoryComponent {
+
+  stories: number = 0
+
   displayedColumns: string[] = ['ID Stories', 'Thumbnail', 'Informations', 'Content', 'Actions'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,7 +45,8 @@ export class ListStoryComponent {
 
   public getStory(): void {
     this.storyService.listStory().subscribe(data => {
-      this.dataSource.data = data;
+      this.dataSource.data = data?.data;
+      this.stories = data?.total
     });
   }
 
@@ -56,6 +60,30 @@ export class ListStoryComponent {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  currentPage: number = 1
+
+  onPageChange(currentPage: number) {
+    this.storyService.paginateStories(currentPage).subscribe(data => {
+      this.dataSource.data = data.data;
+      this.stories = data.total
+    })
+  }
+  right(){
+    if(this.currentPage > Math.ceil(3/this.stories)){
+      return
+    }
+    this.currentPage += 1;
+    this.onPageChange(this.currentPage)
+  }
+
+  left(){
+    if(this.currentPage === 1){
+      return
+    }
+    this.currentPage -= 1;
+    this.onPageChange(this.currentPage)
   }
 
   handleFilter(event: Event) {
